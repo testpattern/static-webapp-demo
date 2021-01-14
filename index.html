@@ -2,16 +2,38 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Vanilla JavaScript App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knockoutjs demo</title>
 </head>
 
 <body>
-  <main>
-    <h1>Vanilla JavaScript App</h1>
-  </main>
+    <h2>Your seat reservations (<span data-bind="text: seats().length"></span>)</h2>
+    <span>Total seats to fill: <input data-bind="value: seatsToFill" /></span>
+    <button data-bind="click: addSeat, enable: hasAvailableSeats">Reserve another seat</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Passenger name</th>
+                <th>Meal</th>
+                <th>Surcharge</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: seats">
+            <td><input data-bind="value: name" /></td>
+            <td><select data-bind="options: $root.availableMeals, value: meal, optionsText: 'mealName'"></select></td>
+            <td data-bind="text: formattedPrice"></td>
+            <td><a href="#" data-bind="click: $root.removeSeat">&times;</a></td>
+        </tbody>
+    </table>
+    <h3 data-bind="visible: totalSurcharges() > 0">
+        Total surcharges: $<span data-bind="text: totalSurcharges().toFixed(2)"></span>
+    </h3>
+
+    <!-- add ko js etc -->
+    <script src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.5.0.js"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>
